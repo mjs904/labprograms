@@ -1,0 +1,11 @@
+import statistics as s
+
+d = [12,15,12,18,20,15,18,15,20,25]
+
+print("Mean:", s.mean(d))
+print("Median:", s.median(d))
+
+try:
+    print("Mode:", s.mode(d))
+except:
+    print("Mode: No unique mode")

@@ -1,0 +1,15 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.tree import DecisionTreeClassifier as D
+from sklearn.metrics import accuracy_score as a
+
+X,y = load_iris(return_X_y=True)
+Xtr,Xte,ytr,yte = train_test_split(X,y,0.3,random_state=42)
+
+g = GridSearchCV(D(),{
+ 'criterion':['gini','entropy'],
+ 'max_depth':[None,5,10],
+ 'min_samples_split':[2,5],
+ 'min_samples_leaf':[1,2]},cv=5).fit(Xtr,ytr)
+
+print("Acc:", a(yte,g.best_estimator_.predict(Xte)))

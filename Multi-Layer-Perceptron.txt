@@ -1,0 +1,15 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split as t
+from sklearn.preprocessing import StandardScaler as S
+from sklearn.neural_network import MLPClassifier as M
+from sklearn.metrics import classification_report as c, accuracy_score as a
+
+X,y = load_iris(return_X_y=True)
+Xtr,Xte,ytr,yte = t(X,y,0.2,random_state=42)
+
+sc = S(); Xtr=sc.fit_transform(Xtr); Xte=sc.transform(Xte)
+
+p = M((10,10),max_iter=500,random_state=42).fit(Xtr,ytr).predict(Xte)
+
+print("Classification Report:\n",c(yte,p))
+print("Accuracy:",a(yte,p))

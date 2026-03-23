@@ -1,0 +1,17 @@
+import numpy as n, matplotlib.pyplot as p
+from sklearn.datasets import make_blobs
+from sklearn.mixture import GaussianMixture as G
+from sklearn.metrics import silhouette_score as s
+
+X,_ = make_blobs(300,2,centers=3,random_state=42)
+
+m = G(3).fit(X)
+lab = m.predict(X)
+
+for i in range(3): p.scatter(X[lab==i,0],X[lab==i,1])
+p.scatter(m.means_[:,0],m.means_[:,1],marker='X')
+p.show()
+
+print("Cluster Centers:\n",m.means_)
+print("\nCovariance Matrices:\n",m.covariances_)
+print("\nSilhouette Score:",s(X,lab))

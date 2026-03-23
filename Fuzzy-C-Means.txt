@@ -1,0 +1,14 @@
+import numpy as n, matplotlib.pyplot as p, skfuzzy as f
+from sklearn.datasets import make_blobs
+
+X,_ = make_blobs(300,2,centers=3,random_state=42)
+
+c,u,_,_,_,_,fpc = f.cluster.cmeans(X.T,3,2,error=0.005,maxiter=1000)
+lab = u.argmax(0)
+
+for i in range(3): p.scatter(X[lab==i,0],X[lab==i,1])
+p.scatter(c[:,0],c[:,1],marker='X')
+p.show()
+
+print("Final cluster centers:\n",c)
+print("FPC:",fpc)

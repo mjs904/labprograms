@@ -1,0 +1,23 @@
+import numpy as n, matplotlib.pyplot as p
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans as K
+from sklearn.metrics import silhouette_score as s
+
+X,_ = make_blobs(300,2,centers=4,cluster_std=1.5,random_state=42)
+
+k=range(1,11); i=[]; ss=[]
+for j in k:
+ m=K(j,random_state=42).fit(X)
+ i.append(m.inertia_)
+ ss.append(s(X,m.labels_) if j>1 else n.nan)
+
+p.subplot(121); p.plot(k,i,'o-'); p.title("Elbow")
+p.subplot(122); p.plot(k[1:],ss[1:],'o-'); p.title("Silhouette")
+p.show()
+
+ok = ss.index(max(ss))+1
+m = K(ok,random_state=42).fit(X)
+
+print("Optimal K:",ok)
+print("Sum of Euclidean distances for K=",ok,":",m.inertia_)
+print("Cluster Centers:\n",m.cluster_centers_)

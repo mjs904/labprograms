@@ -1,0 +1,14 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier as RF
+from sklearn.metrics import *
+
+X,y = load_iris(return_X_y=True)
+Xtr,Xte,ytr,yte = train_test_split(X,y,test_size=0.3,random_state=42)
+
+m = RF(100,random_state=42).fit(Xtr,ytr)
+p = m.predict(Xte)
+
+print(accuracy_score(yte,p))
+print(classification_report(yte,p))
+print(m.feature_importances_)

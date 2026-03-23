@@ -1,0 +1,12 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC as S
+from sklearn.metrics import accuracy_score as a, classification_report as c
+
+X,y = load_iris(return_X_y=True)
+Xtr,Xte,ytr,yte = train_test_split(X,y,0.3,random_state=42)
+
+p = S(kernel='linear').fit(Xtr,ytr).predict(Xte)
+
+print("Acc:", a(yte,p))
+print(c(yte,p))

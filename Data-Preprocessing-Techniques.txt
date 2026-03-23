@@ -1,0 +1,28 @@
+import pandas as pd, numpy as np
+from sklearn.preprocessing import KBinsDiscretizer
+
+d = {
+ 'Age':[25,30,28,35,40,29,60],
+ 'Salary':[50000,60000,np.nan,80000,90000,70000,150000],
+ 'Department':['IT','Marketing','IT',np.nan,'HR','Marketing','IT'],
+ 'Score':[85,78,92,90,70,120,80]
+}
+
+df = pd.DataFrame(d)
+
+# select
+print(df[['Age','Salary']])
+
+# fill missing
+df['Salary'].fillna(df['Salary'].mean(), inplace=True)
+df['Department'].fillna(df['Department'].mode()[0], inplace=True)
+
+# discretize
+df['Age_Binned'] = KBinsDiscretizer(3, encode='ordinal').fit_transform(df[['Age']])
+
+# remove outliers
+q1,q3 = df['Score'].quantile([.25,.75])
+iqr = q3-q1
+df = df[(df['Score']>=q1-1.5*iqr)&(df['Score']<=q3+1.5*iqr)]
+
+print(df)

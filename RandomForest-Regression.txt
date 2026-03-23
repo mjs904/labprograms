@@ -1,0 +1,13 @@
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor as RF
+from sklearn.metrics import *
+
+X,y = fetch_california_housing(return_X_y=True)
+Xtr,Xte,ytr,yte = train_test_split(X,y,test_size=0.3,random_state=42)
+
+m = RF(100,random_state=42).fit(Xtr,ytr)
+p = m.predict(Xte)
+
+print(mean_squared_error(yte,p), mean_absolute_error(yte,p), r2_score(yte,p))
+print(m.feature_importances_)
