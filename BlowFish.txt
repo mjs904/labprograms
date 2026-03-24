@@ -1,0 +1,32 @@
+import javax.crypto.*;
+import javax.crypto.spec.*;
+import java.util.*;
+import java.util.Base64;
+
+public class Main {
+    public static void main(String[] a){
+        try{
+            Scanner s=new Scanner(System.in);
+
+            System.out.print("Enter pain text: ");
+            String pt=s.nextLine();
+            System.out.print("\nEnter Secert Key :");
+            String k=s.nextLine();
+
+            SecretKey sk=new SecretKeySpec(k.getBytes(),"Blowfish");
+
+            Cipher c=Cipher.getInstance("Blowfish");
+            c.init(1,sk);
+            String et=Base64.getEncoder().encodeToString(c.doFinal(pt.getBytes()));
+
+            c.init(2,sk);
+            String dt=new String(c.doFinal(Base64.getDecoder().decode(et)));
+
+            System.out.println("--BlowFish Algorithm --");
+            System.out.println("Plain text : "+pt);
+            System.out.println("Encrypted Text :"+et);
+            System.out.println("Decrypted Text :"+dt);
+
+        }catch(Exception e){System.out.println(e);}
+    }
+}

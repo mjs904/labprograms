@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class RSA {
+
+    static int g(int a, int b) {
+        return b == 0 ? a : g(b, a % b);
+    }
+
+    static int p(int base, int exp, int mod) {
+        int result = 1;
+        for (int i = 0; i < exp; i++) {
+            result = (result * base) % mod;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+
+        System.out.print("Enter prime p: ");
+        int p = s.nextInt();
+
+        System.out.print("Enter prime q: ");
+        int q = s.nextInt();
+
+        int n = p * q;
+        int phi = (p - 1) * (q - 1);
+
+        int e = 2, d = 0;
+
+        while (g(e, phi) != 1) {
+            e++;
+        }
+
+        for (int i = 1; i < phi; i++) {
+            if ((i * e) % phi == 1) {
+                d = i;
+                break;
+            }
+        }
+
+        System.out.print("Enter message (less than " + n + "): ");
+        int m = s.nextInt();
+
+        int c = p(m, e, n);
+        int dec = p(c, d, n);
+
+        System.out.println("Public Key (e,n): (" + e + ", " + n + ")");
+        System.out.println("Private Key (d,n): (" + d + ", " + n + ")");
+        System.out.println("Encrypted Message: " + c);
+        System.out.println("Decrypted Message: " + dec);
+    }
+}

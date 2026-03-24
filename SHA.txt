@@ -1,0 +1,12 @@
+import java.security.*;
+
+public class SHA1Digest {
+    public static void main(String[] a) throws Exception {
+
+        String t="Hello World";
+        byte[] h=MessageDigest.getInstance("SHA-1").digest(t.getBytes());
+
+        System.out.print("SHA-1 Digest: ");
+        for(byte b:h) System.out.printf("%02x",b);
+    }
+}

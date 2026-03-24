@@ -1,0 +1,22 @@
+import java.util.*;
+
+public class Congruence {
+    public static void main(String[] a){
+        Scanner s=new Scanner(System.in);
+
+        System.out.print("Enter value of a: ");
+        int x=s.nextInt();
+        System.out.print("Enter value of b: ");
+        int y=s.nextInt();
+        System.out.print("Enter value of n: ");
+        int n=s.nextInt();
+
+        for(int i=1;i<=x*y;i++)
+            if((x*i)%n==y){
+                System.out.println("Congruent value: "+i);
+                return;
+            }
+
+        System.out.println("Not congruent");
+    }
+}

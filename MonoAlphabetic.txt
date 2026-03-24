@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Monoalphabetic {
+    static String k="QWERTYUIOPASDFGHJKLZXCVBNM";
+
+    static String enc(String t){
+        t=t.toUpperCase(); String r="";
+        for(char c:t.toCharArray())
+            r+=Character.isLetter(c)?k.charAt(c-'A'):c;
+        return r;
+    }
+
+    static String dec(String t){
+        t=t.toUpperCase(); String r="";
+        for(char c:t.toCharArray())
+            r+=Character.isLetter(c)?(char)('A'+k.indexOf(c)):c;
+        return r;
+    }
+
+    public static void main(String[] a){
+        Scanner s=new Scanner(System.in);
+
+        System.out.print("Enter Plain text: ");
+        String p=s.nextLine();
+
+        String e=enc(p);
+        System.out.println("Encrypted text : "+e);
+        System.out.println("Decrypted text: "+dec(e));
+    }
+}

@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class CaesarCipher {
+
+    static String enc(String t,int k){
+        String r="";
+        for(char c:t.toCharArray())
+            r+=c>='A'&&c<='Z'?(char)((c-'A'+k)%26+'A'):
+               c>='a'&&c<='z'?(char)((c-'a'+k)%26+'a'):c;
+        return r;
+    }
+
+    static String dec(String t,int k){
+        return enc(t,26-k);
+    }
+
+    public static void main(String[] a){
+        Scanner s=new Scanner(System.in);
+
+        System.out.print("Enter text: ");
+        String t=s.nextLine();
+        System.out.print("Enter key: ");
+        int k=s.nextInt();
+
+        String e=enc(t,k);
+        System.out.println("Encrypted: "+e);
+        System.out.println("Decrypted: "+dec(e,k));
+    }
+}

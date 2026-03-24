@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    
+        <title>Diffie hellman</title>
+        <style type="text/css" media="all">
+        
+            .box{
+                padding: 20px;
+                margin: 20px;
+            }
+            body{
+                padding: 20px;
+            }
+            input{
+                margin: 6px;
+                padding: 5px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <h2>Diffie hellman key exchange</h2>
+        <div class="box">
+            p:<br><input type="text" id="p" value="" />
+            q:<br><input type="text" id="q" value="" />
+            a:<br><input type="text" id="a" value="" />
+            b:<br><input type="text" id="b" value="" />
+            <button onclick="dh()">generate</button>
+            <h3>results:</h3>
+            <p id="r"></p>
+        </div>
+    </body>
+    <script>
+        function pw(b,e,m){
+            let r=1;
+            for(let i=0;i<e;i++){
+                r=(r*b)%m;
+            }
+            return r;
+        }
+        
+        function dh(){
+            let p = +document.getElementById("p").value;
+            let g = +document.getElementById("q").value;
+            let a = +document.getElementById("a").value;
+            let b = +document.getElementById("b").value;
+            
+            
+
+            if(!p || !g || !a || !b){
+                document.getElementById("r").innerHTML = "please enter all values";
+                return;
+            }
+            let A=pw(g,a,p);
+            let B=pw(g,b,p);
+            let K1=pw(B,a,p);
+            let K2=pw(A,b,p);
+            document.getElementById("r").innerHTML="public key "+A+
+            "<br>public key b "+B+
+            "<br><br>shared key(A) "+K1+
+            "<br>shared key(B) "+K2;
+        }
+    </script>
+</html>

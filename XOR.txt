@@ -1,0 +1,18 @@
+public class XOR {
+    public static void main(String[] a){
+        String s="Hello World", r="";
+        int k=0;
+
+        for(char c:s.toCharArray())
+            r+=(char)(c^k);
+
+        System.out.println("Char ASCII XOR ASCII\n");
+
+        for(int i=0;i<s.length();i++)
+            System.out.println(s.charAt(i)+"\t"+(int)s.charAt(i)+
+            "\t"+r.charAt(i)+"\t"+(int)r.charAt(i));
+
+        System.out.println("\nOriginal: "+s);
+        System.out.println("After XOR: "+r);
+    }
+}

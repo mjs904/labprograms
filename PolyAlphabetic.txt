@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Polyalphabetic {
+
+    static String enc(String t,String k){
+        t=t.toUpperCase(); k=k.toUpperCase();
+        String r=""; int j=0;
+        for(char c:t.toCharArray())
+            r+=Character.isLetter(c)?
+            (char)((c-'A'+k.charAt(j++%k.length())-'A')%26+'A'):c;
+        return r;
+    }
+
+    static String dec(String t,String k){
+        t=t.toUpperCase(); k=k.toUpperCase();
+        String r=""; int j=0;
+        for(char c:t.toCharArray())
+            r+=Character.isLetter(c)?
+            (char)((c-'A'-(k.charAt(j++%k.length())-'A')+26)%26+'A'):c;
+        return r;
+    }
+
+    public static void main(String[] a){
+        Scanner s=new Scanner(System.in);
+
+        System.out.print("Enter Plain text: ");
+        String p=s.nextLine();
+        System.out.print("Enter Key: ");
+        String k=s.nextLine();
+
+        String e=enc(p,k);
+        System.out.println("Encrypted text : "+e);
+        System.out.println("Decrypted text: "+dec(e,k));
+    }
+}
